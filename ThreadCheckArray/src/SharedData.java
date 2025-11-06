@@ -93,7 +93,7 @@ public class SharedData
      * @param flag   true if the number was found, false otherwise.
      */
 	public void setFlag(boolean flag) {
-		this.flag = flag;
+		this.flag = flag;
 	}
 
 }

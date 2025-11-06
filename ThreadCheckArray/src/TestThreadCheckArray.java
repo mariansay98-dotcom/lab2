@@ -53,37 +53,27 @@ public class TestThreadCheckArray {
 			}
 			System.out.println("Solution for b : " + sd.getB() + ", n = " + sd.getArray().size());
 
-            System.out.print("I:    ");
-            for (int i = 0; i < sd.getArray().size(); i++)
-                System.out.print(i + "    ");
 			System.out.println();
-			System.out.print("A:    ");
-			for (int index : sd.getArray())
-			{
-				System.out.print(index);
-				int counter = 5;
-				int temp = Math.abs(index);
-				while (true)
-				{
-					index = index / 10;
-					counter--;
-					if (temp == 0)
-						break;
-				}
-				for (int i = 0; i < counter; i++)
-					System.out.print(" ");
-			}
 
+			System.out.print("I:   ");
+			for (int i = 0; i < sd.getArray().size(); i++) {
+			    System.out.printf("%-5d", i);
+			}
 			System.out.println();
-			System.out.print("C:    ");
-			for (boolean index : sd.getWinArray())
-			{
-				if (index)
-					System.out.print("1    ");
-				else
-					System.out.print("0    ");	
+
+			System.out.print("A:   ");
+			for (int numValue : sd.getArray()) {
+			    System.out.printf("%-5d", numValue);
+			}
+			System.out.println();
+
+			System.out.print("C:   ");
+			for (boolean win : sd.getWinArray()) {
+			    System.out.printf("%-5d", win ? 1 : 0);
+			}
+			System.out.println();
 			}
 		}
 	}
 
-}
+
