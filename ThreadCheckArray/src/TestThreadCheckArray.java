@@ -1,24 +1,31 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TestThreadCheckArray {
 	public static void main(String[] args) {
 		try (Scanner input = new Scanner(System.in)) {
 			Thread thread1, thread2;
+			
 			System.out.println("Enter array size");
 			int num  = input.nextInt();
-			int [] array = new int[num];
+			
+			 ArrayList<Integer> array = new ArrayList<>(num);
 			System.out.println("Enter numbers for array");
 			
 			for (int index = 0; index < num; index++) 
-				array[index] = input.nextInt();
+				 array.add(input.nextInt());
 			
 			System.out.println("Enter number");
-			num = input.nextInt();
+			int target= input.nextInt();
 			
-			SharedData sd = new SharedData(array, num);
+			 SharedData sd = new SharedData(array, target);
 			
 			thread1 = new Thread(new ThreadCheckArray(sd), "thread1");
 			thread2 = new Thread(new ThreadCheckArray(sd), "thread2");
+			
+			//start measuring total runtime
+			long startTime = System.currentTimeMillis();
+			
 			thread1.start();
 			thread2.start();
 			try 
@@ -30,26 +37,37 @@ public class TestThreadCheckArray {
 			{
 				e.printStackTrace();
 			}
+			
+			//end measuring total runtime
+			long endTime = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			
+			//print total runtime
+			System.out.println("Total threads runtime: " + totalTime + "ms");
+			
+			
 			if (!sd.getFlag())
 			{
 				System.out.println("Sorry");
 				return;
 			}
-			System.out.println("Solution for b : " + sd.getB() + ",n = " + sd.getArray().length);
-			System.out.print("I:    ");
-			for(int index = 0; index < sd.getArray().length ; index++)
-				System.out.print(index + "    ");
+			System.out.println("Solution for b : " + sd.getB() + ", n = " + sd.getArray().size());
+
+            System.out.print("I:    ");
+            for (int i = 0; i < sd.getArray().size(); i++)
+                System.out.print(i + "    ");
 			System.out.println();
 			System.out.print("A:    ");
 			for (int index : sd.getArray())
 			{
 				System.out.print(index);
 				int counter = 5;
+				int temp = Math.abs(index);
 				while (true)
 				{
 					index = index / 10;
 					counter--;
-					if (index == 0)
+					if (temp == 0)
 						break;
 				}
 				for (int i = 0; i < counter; i++)
