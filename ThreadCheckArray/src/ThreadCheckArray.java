@@ -1,12 +1,25 @@
 import java.util.ArrayList;
 
+/**
+ * Thread that checks if target b can be made from array elements.
+ */
 public class ThreadCheckArray implements Runnable {
+
+	/** True if solution found. */
 	private boolean flag;
+	/** Marks chosen elements. */
 	private boolean[] winArray;
+	/** Shared data between threads. */
 	private SharedData sd;
+	/** Array to check. */
 	private ArrayList<Integer> array;
+	/** Target value. */
 	private int b;
 
+	/**
+	 * Constructor.
+	 * @param sd shared data object
+	 */
 	public ThreadCheckArray(SharedData sd) {
 		this.sd = sd;
 
@@ -18,6 +31,11 @@ public class ThreadCheckArray implements Runnable {
 		winArray = new boolean[array.size()];
 	}
 
+	/**
+	 * Recursive check.
+	 * @param n index
+	 * @param b target
+	 */
 	void rec(int n, int b) {
 		synchronized (sd) {
 			if (sd.getFlag())
@@ -49,6 +67,9 @@ public class ThreadCheckArray implements Runnable {
 		rec(n - 1, b);
 	}
 
+	/**
+	 * Runs the thread logic.
+	 */
 	public void run() {
 		int size = array.size();
 
